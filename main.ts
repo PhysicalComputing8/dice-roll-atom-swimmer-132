@@ -1,30 +1,6 @@
-function point_counter () {
-    if (Math.sqrt(Sum) % 1 == 0) {
-        game.addScore(10)
-        basic.showNumber(game.score())
-    } else if (Sum % 2 == 1 && Math.randomBoolean()) {
-        // I used something with a similar game mechanic because I can’t figure out how to import a bunch of prime numbers or check whether something is an element of an arbitrary list.
-        game.addScore(1)
-    }
-}
-input.onButtonPressed(Button.B, function () {
-    if (game.isPaused()) {
-        game.resume()
-    } else {
-        game.pause()
-    }
-})
-input.onGesture(Gesture.Shake, function () {
-    roll = randint(1, 6)
-    showpips(roll)
-    sum()
-    basic.showIcon(IconNames.Sword)
-    basic.showNumber(Sum)
-    point_counter()
-})
 // woah!! using functions. Very impressive.  AND you are passing an argument to your function.
 // 
-// This is great stuff. 
+// This is great stuff.
 // 
 // I also like the way you designed the pips on your die face.
 function showpips (number: number) {
@@ -87,11 +63,55 @@ function showpips (number: number) {
         }
     }
 }
-function sum () {
+function point_counter () {
+    if (Math.sqrt(Sum) % 1 == 0) {
+        game.addScore(10)
+        basic.showNumber(game.score())
+    } else {
+        findprime(Sum)
+        if (findprime(Sum)) {
+            game.addScore(1)
+            basic.showNumber(game.score())
+        } else {
+            game.addScore(0)
+        }
+    }
+    if (Sum % 100 == 0) {
+        basic.showNumber(game.score())
+        game.gameOver()
+    }
+}
+function findprime (Q: number) {
+    value = 0
+    while (0 <= Q) {
+        value += 1
+    }
+    if (Q % 1 == 0) {
+        return true
+    } else {
+        return false
+    }
+}
+input.onButtonPressed(Button.B, function () {
+    if (game.isPaused()) {
+        game.resume()
+    } else {
+        game.pause()
+    }
+})
+input.onGesture(Gesture.Shake, function () {
+    roll = randint(1, 6)
+    showpips(roll)
+    basic.showIcon(IconNames.Sword)
+    findsum()
+    basic.showNumber(Sum)
+    point_counter()
+})
+function findsum () {
     Sum += roll
-    return Sum
 }
 let roll = 0
+let value = 0
 let Sum = 0
 game.setScore(0)
 Sum = 0
