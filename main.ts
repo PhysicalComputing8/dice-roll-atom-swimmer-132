@@ -63,6 +63,9 @@ function showpips (number: number) {
         }
     }
 }
+input.onButtonPressed(Button.A, function () {
+    game.gameOver()
+})
 function point_counter () {
     if (Math.sqrt(Sum) % 1 == 0) {
         game.addScore(10)
